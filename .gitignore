@@ -1,0 +1,10 @@
+autocomplete
+
+*.o
+
+*~
+*.swp
+
+*.out
+
+.vscode
