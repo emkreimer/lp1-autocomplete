@@ -1,43 +1,22 @@
-#include "Autocomplete.h"
 #include <iostream>
-#include <fstream>
-#include <sstream>
+#include <cstdlib>
+#include "Autocompletar.h"
 
-int main()
+int main(int argc, char *argv[])
 {
-    Autocompletar autoComplete;
-    std::ifstream file("dataset.txt");
-    std::string line;
-
-    while (std::getline(file, line))
+    if (argc != 3)
     {
-        std::istringstream iss(line);
-        long long peso;
-        std::string termo;
-
-        iss >> peso;
-        std::getline(iss, termo);
-        termo = termo.substr(1); // Remove leading whitespace
-
-        autoComplete.adicionarTermo(Termo(termo, peso));
+        std::cerr << "Uso: " << argv[0] << " <dataset.txt> <k>" << std::endl;
+        return 1;
     }
 
-    autoComplete.ordenarTermos();
+    std::string datasetFilename = argv[1];
 
-    std::string input;
-    while (true)
-    {
-        std::cout << "Entre com o termo a ser auto-completado (digite 'sair' para encerrar o programa): ";
-        std::getline(std::cin, input);
+    int k = std::atoi(argv[2]);
 
-        if (input == "sair")
-        {
-            break;
-        }
-
-        int k = 10; // Show top 10 results
-        autoComplete.buscar(input, k);
-    }
+    Autocompletar autocompletar;
+    autocompletar.carregarDados(datasetFilename);
+    autocompletar.iniciar(k);
 
     return 0;
 }

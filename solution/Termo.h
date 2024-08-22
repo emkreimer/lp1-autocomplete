@@ -5,11 +5,17 @@
 
 class Termo
 {
-public:
+private:
     std::string termo;
     long long peso;
 
-    Termo(const std::string &t = "", long long p = 0);
+public:
+    Termo(std::string t, long long p);
+    std::string getTermo() const;
+    long long getPeso() const;
+
+    bool operator<(const Termo &other) const;
+    bool operator>(const Termo &other) const;
 };
 
 #endif
